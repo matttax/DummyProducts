@@ -12,6 +12,8 @@ import com.matttax.dummyproducts.connectivity.NetworkConnectivityProvider
 import com.matttax.dummyproducts.presentation.model.CategoryUiModel
 import com.matttax.dummyproducts.presentation.model.ProductQuery
 import com.matttax.dummyproducts.presentation.model.SearchSingleEvent
+import com.matttax.dummyproducts.presentation.utils.RefreshTrigger
+import com.matttax.dummyproducts.presentation.utils.createRefreshTrigger
 import com.matttax.dummyproducts.presentation.utils.pull
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -30,33 +32,30 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _productsState: MutableStateFlow<PagingData<ProductDomainModel>> = MutableStateFlow(value = PagingData.empty())
-    val productsState: StateFlow<PagingData<ProductDomainModel>>
-        get() = _productsState.asStateFlow()
+    val productsState = _productsState.asStateFlow()
 
     private val _queryText = MutableStateFlow("")
-    val queryText: StateFlow<String>
-        get() = _queryText.asStateFlow()
+    val queryText = _queryText.asStateFlow()
 
     private val _categoriesList = MutableStateFlow<List<CategoryUiModel>?>(null)
-    val categoriesList: StateFlow<List<CategoryUiModel>?>
-        get() = _categoriesList.asStateFlow()
+    val categoriesList = _categoriesList.asStateFlow()
     private val changedCategories = Collections.synchronizedSet(HashSet<String>())
 
     private val searchSingleEventChanel = Channel<SearchSingleEvent>()
     val eventFlow = searchSingleEventChanel.receiveAsFlow()
+
     val networkConnectionState = networkConnectivityProvider.networkStatus.stateIn(
         initialValue = ConnectionState.UNAVAILABLE,
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(FLOW_STOP_TIMEOUT_MS)
     )
 
-    private val refreshTrigger = MutableSharedFlow<Unit>(replay = 1)
+    private val refreshTrigger = createRefreshTrigger()
     private var listUpdatedFlag = AtomicReference(false)
 
     init {
         observeData()
         observeCategories()
-        refreshTrigger.pull()
     }
 
     fun onSearchTextChanged(newText: String) {
@@ -131,6 +130,7 @@ class SearchViewModel @Inject constructor(
                     listUpdatedFlag.set(false)
                 }
             }.launchIn(viewModelScope)
+        refreshTrigger.pull()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

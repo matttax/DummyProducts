@@ -32,7 +32,9 @@ class MainActivity : ComponentActivity() {
                     ) {
                         val searchViewModel = hiltViewModel<SearchViewModel>()
                         ProductsListScreen(searchViewModel) { id ->
-                            navController.navigate(NavigationScreen.ProductData.navigateById(id))
+                            navController.navigate(NavigationScreen.ProductData.navigateById(id)) {
+                                popUpTo(NavigationScreen.SearchProducts.route)
+                            }
                         }
                     }
                     composable(

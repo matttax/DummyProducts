@@ -9,9 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.platform.LocalDensity
 import com.matttax.dummyproducts.domain.ProductDomainModel
+import com.matttax.dummyproducts.presentation.model.CartCountEvent
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun LoadedProductPortrait(product: ProductDomainModel) {
+fun LoadedProductPortrait(
+    product: ProductDomainModel,
+    currentCount: StateFlow<Int>,
+    onChangeCountInCart: (CartCountEvent) -> Unit
+) {
     var barYPosition by remember { mutableStateOf(0) }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -25,7 +31,10 @@ fun LoadedProductPortrait(product: ProductDomainModel) {
                     },
                 price = product.price,
                 discountPercentage = product.discountPercentage,
-                inStock = product.inStock
+                inStock = product.inStock,
+                currentCount = currentCount,
+                onChangeCount = onChangeCountInCart,
+                onSubmit = {}
             )
         }
     ) {
@@ -39,7 +48,11 @@ fun LoadedProductPortrait(product: ProductDomainModel) {
 }
 
 @Composable
-fun LoadedProductLandscape(product: ProductDomainModel) {
+fun LoadedProductLandscape(
+    product: ProductDomainModel,
+    currentCount: StateFlow<Int>,
+    onChangeCountInCart: (CartCountEvent) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +68,10 @@ fun LoadedProductLandscape(product: ProductDomainModel) {
             CartPanel(
                 price = product.price,
                 discountPercentage = product.discountPercentage,
-                inStock = product.inStock
+                inStock = product.inStock,
+                currentCount = currentCount,
+                onChangeCount = onChangeCountInCart,
+                onSubmit = {}
             )
         }
     }

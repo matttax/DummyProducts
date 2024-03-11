@@ -1,6 +1,7 @@
 package com.matttax.dummyproducts.presentation.screens
 
 import android.content.res.Configuration
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -11,19 +12,27 @@ import androidx.compose.ui.unit.dp
 import com.matttax.dummyproducts.presentation.ProductViewModel
 import com.matttax.dummyproducts.presentation.components.product.LoadedProductLandscape
 import com.matttax.dummyproducts.presentation.components.product.LoadedProductPortrait
+import com.matttax.dummyproducts.presentation.model.CartCountEvent
 import com.matttax.dummyproducts.presentation.model.ProductState
 import com.matttax.dummyproducts.ui.common.ErrorMessage
 import com.matttax.dummyproducts.ui.common.ProgressBar
 
 @Composable
-fun ProductItemScreen(productViewModel: ProductViewModel) {
-    val productState by productViewModel.productState.collectAsState()
+fun ProductItemScreen(viewModel: ProductViewModel) {
+    val productState by viewModel.productState.collectAsState()
+    val toCartAdded by viewModel.toCartAddedCount.collectAsState()
     val configuration = LocalConfiguration.current
     when (val state = productState) {
         is ProductState.Result -> {
-            if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-                LoadedProductPortrait(state.product)
-            else LoadedProductLandscape(state.product)
+            if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                LoadedProductPortrait(
+                    product = state.product,
+                    currentCount = viewModel.toCartAddedCount,
+                    onChangeCountInCart = viewModel::changeSelectedCount
+                )
+            } else {
+                LoadedProductLandscape(state.product, viewModel.toCartAddedCount, viewModel::changeSelectedCount)
+            }
         }
         is ProductState.Loading -> {
             ProgressBar(
@@ -36,7 +45,7 @@ fun ProductItemScreen(productViewModel: ProductViewModel) {
                 modifier = Modifier.fillMaxSize(),
                 message = state.message
             ) {
-                productViewModel.refresh()
+                viewModel.refresh()
             }
         }
         is ProductState.NotFound -> {
@@ -44,8 +53,11 @@ fun ProductItemScreen(productViewModel: ProductViewModel) {
                 modifier = Modifier.fillMaxSize(),
                 message = "Product not found"
             ) {
-                productViewModel.refresh()
+                viewModel.refresh()
             }
         }
+    }
+    BackHandler(productState is ProductState.Result && toCartAdded > 0) {
+        viewModel.changeSelectedCount(CartCountEvent.CLEAR)
     }
 }

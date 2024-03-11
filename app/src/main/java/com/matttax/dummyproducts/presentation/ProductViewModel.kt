@@ -7,7 +7,9 @@ import com.matttax.dummyproducts.connectivity.ConnectionState
 import com.matttax.dummyproducts.connectivity.NetworkConnectivityProvider
 import com.matttax.dummyproducts.data.ProductRepository
 import com.matttax.dummyproducts.data.model.ProductLoadingException
+import com.matttax.dummyproducts.presentation.model.CartCountEvent
 import com.matttax.dummyproducts.presentation.model.ProductState
+import com.matttax.dummyproducts.presentation.utils.createRefreshTrigger
 import com.matttax.dummyproducts.presentation.utils.pull
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,8 +27,11 @@ class ProductViewModel @Inject constructor(
     private val _productState = MutableStateFlow<ProductState>(ProductState.Loading)
     val productState = _productState.asStateFlow()
 
+    private val _toCartAddedCount = MutableStateFlow(0)
+    val toCartAddedCount = _toCartAddedCount.asStateFlow()
+
     private val productId: Long = checkNotNull(savedStateHandle[ID_KEY])
-    private val refreshTrigger = MutableSharedFlow<Unit>(replay = 1)
+    private val refreshTrigger = createRefreshTrigger()
 
     init {
         observeProduct()
@@ -35,6 +40,19 @@ class ProductViewModel @Inject constructor(
 
     fun refresh() {
         refreshTrigger.pull()
+    }
+
+    fun changeSelectedCount(event: CartCountEvent) {
+        val productStable = _productState.value
+        if (productStable is ProductState.Result) {
+            _toCartAddedCount.update {
+                when(event) {
+                    CartCountEvent.INCREMENT -> it + 1
+                    CartCountEvent.DECREMENT -> it - 1
+                    CartCountEvent.CLEAR -> 0
+                }.coerceIn(0, productStable.product.inStock)
+            }
+        }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
