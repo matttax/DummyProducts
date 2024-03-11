@@ -4,7 +4,6 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import com.matttax.dummyproducts.R
 
@@ -54,6 +53,10 @@ val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = jostNormal,
         fontSize = 24.sp,
+    ),
+    displayLarge = TextStyle(
+        fontFamily = jostBold,
+        fontSize = 28.sp
     ),
     displayMedium = TextStyle(
         fontFamily = jostMedium,

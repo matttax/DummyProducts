@@ -11,7 +11,13 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-class StarShape : Shape {
+class StarShape(
+    private val pointCount: Int = 5,
+    private val innerToOuterRadius: Float = 2.5f
+) : Shape {
+
+    private val angleIncrement = PI / pointCount
+
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
@@ -26,7 +32,7 @@ class StarShape : Shape {
         return Path().apply {
             val center = PointF(size.width / 2f, size.height / 2f)
             val outerRadius = minOf(size.width, size.height) / 2f
-            val innerRadius = outerRadius / INNER_TO_OUTER_RADIUS
+            val innerRadius = outerRadius / innerToOuterRadius
             var angle = -PI / 2f
             moveTo(
                 x = (center.x + outerRadius * cos(angle)).toFloat(),
@@ -34,15 +40,15 @@ class StarShape : Shape {
             )
 
             // Отрисовка лучей звезды по порядку
-            for (i in 1..POINT_COUNT) {
+            for (i in 1..pointCount) {
                 // Внутренний угол
-                angle += ANGLE_INCREMENT / 2
+                angle += angleIncrement
                 lineTo(
                     x = (center.x + innerRadius * cos(angle)).toFloat(),
                     y = (center.y + innerRadius * sin(angle)).toFloat()
                 )
                 // Внешний угол
-                angle += ANGLE_INCREMENT / 2
+                angle += angleIncrement
                 lineTo(
                     x = (center.x + outerRadius * cos(angle)).toFloat(),
                     y = (center.y + outerRadius * sin(angle)).toFloat()
@@ -50,11 +56,5 @@ class StarShape : Shape {
             }
             close()
         }
-    }
-
-    companion object {
-        const val POINT_COUNT = 5
-        const val ANGLE_INCREMENT = 2 * PI / POINT_COUNT
-        const val INNER_TO_OUTER_RADIUS = 2.5f
     }
 }

@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts.presentation.components
+package com.matttax.dummyproducts.presentation.components.search
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding

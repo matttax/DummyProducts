@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts.presentation.components
+package com.matttax.dummyproducts.presentation.components.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +16,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.matttax.dummyproducts.domain.ProductDomainModel
 import com.matttax.dummyproducts.connectivity.ConnectionState
 import com.matttax.dummyproducts.presentation.model.toUiModel
-import com.matttax.dummyproducts.presentation.utils.StringUtils
+import com.matttax.dummyproducts.presentation.utils.ui.StringUtils
 import com.matttax.dummyproducts.ui.common.ErrorMessage
 import com.matttax.dummyproducts.ui.common.ProgressBar
 import com.matttax.dummyproducts.ui.common.isInErrorState
@@ -27,7 +27,8 @@ import kotlinx.coroutines.flow.collectLatest
 fun ProductsPagingList(
     pagingListFlow: Flow<PagingData<ProductDomainModel>>,
     networkConnectionState: Flow<ConnectionState>,
-    listState: LazyListState
+    listState: LazyListState,
+    onItemClick: (Long) -> Unit
 ) {
     val pagingProducts = pagingListFlow.collectAsLazyPagingItems()
     LaunchedEffect(true) {
@@ -46,7 +47,9 @@ fun ProductsPagingList(
             count = pagingProducts.itemCount,
             key = { pagingProducts[it]?.id ?: 0 }
         ) { index ->
-            pagingProducts[index]?.toUiModel()?.let { ProductItem(it) }
+            pagingProducts[index]?.toUiModel()?.let {
+                ProductItem(it, onItemClick)
+            }
         }
         pagingProducts.run {
             when {

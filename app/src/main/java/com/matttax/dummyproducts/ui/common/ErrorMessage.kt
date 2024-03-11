@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.matttax.dummyproducts.presentation.utils.StringUtils
+import com.matttax.dummyproducts.presentation.utils.ui.StringUtils
 
 @Composable
 fun ErrorMessage(

@@ -1,6 +1,7 @@
-package com.matttax.dummyproducts.presentation.components
+package com.matttax.dummyproducts.presentation.components.search
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -17,12 +18,16 @@ import com.matttax.dummyproducts.presentation.model.ProductUiModel
 import com.matttax.dummyproducts.ui.common.StarRatingBar
 
 @Composable
-fun ProductItem(product: ProductUiModel) {
+fun ProductItem(
+    product: ProductUiModel,
+    onClick: (Long) -> Unit
+) {
     val configuration = LocalConfiguration.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 5.dp),
+            .padding(horizontal = 5.dp)
+            .clickable { onClick(product.id) },
         shape = RoundedCornerShape(7.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer)

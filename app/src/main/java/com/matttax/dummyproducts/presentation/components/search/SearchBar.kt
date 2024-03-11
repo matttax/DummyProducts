@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts.presentation.components
+package com.matttax.dummyproducts.presentation.components.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.matttax.dummyproducts.R
-import com.matttax.dummyproducts.presentation.utils.StringUtils
+import com.matttax.dummyproducts.presentation.utils.ui.StringUtils
 import kotlinx.coroutines.flow.Flow
 
 @Composable

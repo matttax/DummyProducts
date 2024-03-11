@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts.presentation.components
+package com.matttax.dummyproducts.presentation.components.search
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card

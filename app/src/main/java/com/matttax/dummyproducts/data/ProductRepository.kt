@@ -1,12 +1,14 @@
 package com.matttax.dummyproducts.data
 
 import androidx.paging.*
+import com.matttax.dummyproducts.data.model.ProductLoadingException.Companion.toProductException
 import com.matttax.dummyproducts.data.model.toDomainCategories
+import com.matttax.dummyproducts.data.model.toDomainProduct
 import com.matttax.dummyproducts.data.model.toDomainProductList
 import com.matttax.dummyproducts.domain.ProductDomainModel
 import com.matttax.dummyproducts.data.paging.PagingConsts
 import com.matttax.dummyproducts.data.paging.ProductPagingSource
-import com.matttax.dummyproducts.domain.CategoryDomainModel
+import com.matttax.dummyproducts.domain.Categories
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -40,9 +42,23 @@ class ProductRepository @Inject constructor(
         }.flow
     }
 
-    fun getCategories(): Flow<List<CategoryDomainModel>> {
+    fun getCategories(): Flow<Result<Categories>> {
         return flow {
-            emit(productApi.getCategories().toDomainCategories())
+            try {
+                emit(Result.success(productApi.getCategories().toDomainCategories()))
+            } catch (ex: Exception) {
+                emit(Result.failure(ex))
+            }
+        }
+    }
+
+    fun getProductById(id: Long): Flow<Result<ProductDomainModel>> {
+        return flow {
+            try {
+                emit(Result.success(productApi.getProductById(id).toDomainProduct()))
+            } catch (ex: Exception) {
+                emit(Result.failure(ex.toProductException()))
+            }
         }
     }
 

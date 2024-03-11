@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts.presentation.utils
+package com.matttax.dummyproducts.presentation.utils.ui
 
 import androidx.paging.LoadState
 import java.net.ConnectException

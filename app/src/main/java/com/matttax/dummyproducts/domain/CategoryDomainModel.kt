@@ -4,3 +4,5 @@ package com.matttax.dummyproducts.domain
 value class CategoryDomainModel(
     val name: String
 )
+
+typealias Categories = List<CategoryDomainModel>

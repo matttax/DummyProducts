@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts.presentation.components
+package com.matttax.dummyproducts.presentation.components.search
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import com.matttax.dummyproducts.presentation.model.CategoryUiModel
-import com.matttax.dummyproducts.presentation.utils.AnimationUtils
-import com.matttax.dummyproducts.presentation.utils.StringUtils
+import com.matttax.dummyproducts.presentation.utils.ui.AnimationUtils
+import com.matttax.dummyproducts.presentation.utils.ui.StringUtils
 import com.matttax.dummyproducts.ui.common.ExpansionArrow
 import kotlinx.coroutines.flow.Flow
 
@@ -52,8 +52,8 @@ fun Filters(
         Popup(offset = IntOffset(0, barYPosition)) {
             AnimatedVisibility(
                 visible = filtersExpanded,
-                enter = AnimationUtils.popUpEnter,
-                exit = AnimationUtils.popUpExit,
+                enter = AnimationUtils.popUpEnter(AnimationUtils.PopUpDirection.DOWN),
+                exit = AnimationUtils.popUpExit(AnimationUtils.PopUpDirection.DOWN),
             ) {
                 FlowRow(
                     modifier = Modifier

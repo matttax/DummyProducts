@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts.presentation.utils
+package com.matttax.dummyproducts.presentation.utils.ui
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -9,6 +9,7 @@ object AnimationUtils {
     private const val DEFAULT_SLIDE_DURATION = 500
     private const val DEFAULT_FADE_DURATION = 350
     private const val DEFAULT_SCALE_DURATION = 400
+    private const val DEFAULT_NAVIGATION_DURATION = 700
 
     val scaleIn = scaleIn(
         animationSpec = tween(DEFAULT_SCALE_DURATION)
@@ -18,8 +19,23 @@ object AnimationUtils {
         animationSpec = tween(DEFAULT_SCALE_DURATION)
     )
 
-    val popUpEnter = slideInVertically (
-        initialOffsetY = { -it },
+    val navigationSlideInAnimation = slideInHorizontally(
+        initialOffsetX = { it },
+        animationSpec = tween(DEFAULT_NAVIGATION_DURATION)
+    )
+
+    val navigationSlideOutAnimation = slideOutHorizontally(
+        targetOffsetX = { it },
+        animationSpec = tween(DEFAULT_NAVIGATION_DURATION)
+    )
+
+    fun popUpEnter(popUpDirection: PopUpDirection) = slideInVertically (
+        initialOffsetY = {
+            when(popUpDirection) {
+                PopUpDirection.UP -> it
+                PopUpDirection.DOWN -> -it
+            }
+        },
         animationSpec = tween(
             durationMillis = DEFAULT_SLIDE_DURATION,
             easing = LinearOutSlowInEasing
@@ -31,8 +47,13 @@ object AnimationUtils {
         )
     )
 
-    val popUpExit = slideOutVertically (
-        targetOffsetY = { -it },
+    fun popUpExit(popUpDirection: PopUpDirection) = slideOutVertically (
+        targetOffsetY = {
+            when(popUpDirection) {
+                PopUpDirection.UP -> it
+                PopUpDirection.DOWN -> -it
+            }
+        },
         animationSpec = tween(
             durationMillis = DEFAULT_SLIDE_DURATION,
             easing = FastOutSlowInEasing
@@ -42,5 +63,13 @@ object AnimationUtils {
             durationMillis = DEFAULT_FADE_DURATION,
             easing = FastOutSlowInEasing
         )
+    ) + shrinkVertically(
+        animationSpec = tween(
+            delayMillis = DEFAULT_SLIDE_DURATION
+        )
     )
+
+    enum class PopUpDirection {
+        UP, DOWN
+    }
 }
