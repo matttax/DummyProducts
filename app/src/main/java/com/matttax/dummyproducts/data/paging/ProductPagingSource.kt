@@ -2,21 +2,18 @@ package com.matttax.dummyproducts.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.matttax.dummyproducts.Product
-import com.matttax.dummyproducts.data.ProductApi
+import com.matttax.dummyproducts.domain.ProductDomainModel
 import retrofit2.HttpException
 import java.io.IOException
 
 class ProductPagingSource(
-    private val productDataSource: ProductApi,
-) : PagingSource<Int, Product>() {
+    private val fetchProducts: suspend (key: Int) -> List<ProductDomainModel>,
+) : PagingSource<Int, ProductDomainModel>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Product> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ProductDomainModel> {
         return try {
             val currentSkip = params.key ?: 0
-            val products = productDataSource.getAllProducts(
-                skip = currentSkip
-            ).products
+            val products = fetchProducts(currentSkip)
             LoadResult.Page(
                 data = products,
                 prevKey = getPrevKey(currentSkip),
@@ -29,7 +26,7 @@ class ProductPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Product>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, ProductDomainModel>): Int? {
         return state.anchorPosition
     }
 
@@ -37,7 +34,7 @@ class ProductPagingSource(
         return if (currentSkip == 0) {
             null
         } else {
-            currentSkip - PaginationConsts.DEFAULT_PAGE_SIZE
+            currentSkip - PagingConsts.DEFAULT_PAGE_SIZE
         }
     }
 
@@ -45,7 +42,7 @@ class ProductPagingSource(
         return if (isListEmpty) {
             null
         } else {
-            currentSkip + PaginationConsts.DEFAULT_PAGE_SIZE
+            currentSkip + PagingConsts.DEFAULT_PAGE_SIZE
         }
     }
 }

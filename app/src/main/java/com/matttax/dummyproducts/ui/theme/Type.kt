@@ -39,7 +39,6 @@ val Typography = Typography(
         fontFamily = jostMedium,
         fontSize = 12.sp
     ),
-
     labelLarge = TextStyle(
         fontFamily = jostBold,
         fontSize = 15.sp,
@@ -50,11 +49,18 @@ val Typography = Typography(
     ),
     labelSmall = TextStyle(
         fontFamily = jostLight,
-        fontSize = 15.sp,
-        textDecoration = TextDecoration.LineThrough
+        fontSize = 15.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = jostNormal,
         fontSize = 24.sp,
+    ),
+    displayMedium = TextStyle(
+        fontFamily = jostMedium,
+        fontSize = 24.sp,
+    ),
+    displaySmall = TextStyle(
+        fontFamily = jostMedium,
+        fontSize = 16.sp,
     ),
 )

@@ -1,7 +1,7 @@
 package com.matttax.dummyproducts.presentation.model
 
 import androidx.compose.runtime.Immutable
-import com.matttax.dummyproducts.Product
+import com.matttax.dummyproducts.domain.ProductDomainModel
 
 @Immutable
 data class ProductUiModel(
@@ -15,7 +15,7 @@ data class ProductUiModel(
     val rating: Float
 )
 
-fun Product.toUiModel(): ProductUiModel {
+fun ProductDomainModel.toUiModel(): ProductUiModel {
     return ProductUiModel(
         id = id,
         title = title,

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.matttax.dummyproducts.presentation.model.ProductUiModel
 import com.matttax.dummyproducts.ui.common.StarRatingBar
@@ -84,7 +85,9 @@ fun ProductItem(product: ProductUiModel) {
                     )
                     Text(
                         text = String.format("%.1f", product.oldPrice),
-                        style = MaterialTheme.typography.labelSmall,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            textDecoration = TextDecoration.LineThrough
+                        ),
                         color = MaterialTheme.colorScheme.onSecondary
                     )
                 }

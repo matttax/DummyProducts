@@ -1,6 +1,5 @@
-package com.matttax.dummyproducts
+package com.matttax.dummyproducts.data.model
 
-import androidx.annotation.FloatRange
 import com.google.gson.annotations.SerializedName
 
 data class Product(
@@ -17,11 +16,9 @@ data class Product(
     val price: Double,
 
     @SerializedName("discountPercentage")
-    @FloatRange(from = 0.0, to = 100.0)
     val discountPercentage: Double,
 
     @SerializedName("rating")
-    @FloatRange(from = 0.0, to = 5.0)
     val rating: Double,
 
     @SerializedName("stock")
@@ -38,8 +35,4 @@ data class Product(
 
     @SerializedName("images")
     val imageUris: List<String>
-)
-
-data class ProductsResponse(
-    val products: List<Product>
 )

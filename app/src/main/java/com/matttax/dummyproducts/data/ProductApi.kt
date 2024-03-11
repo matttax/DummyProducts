@@ -1,7 +1,8 @@
 package com.matttax.dummyproducts.data
 
-import com.matttax.dummyproducts.ProductsResponse
+import com.matttax.dummyproducts.data.model.ProductsResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ProductApi {
@@ -10,7 +11,24 @@ interface ProductApi {
     suspend fun getAllProducts(
         @Query("skip") skip: Int,
         @Query("limit") limit: Int = 20
-    ): ProductsResponse
+    ) : ProductsResponse
+
+    @GET("products/search")
+    suspend fun searchProducts(
+        @Query("q") text: String,
+        @Query("skip") skip: Int,
+        @Query("limit") limit: Int = 20
+    ) : ProductsResponse
+
+    @GET("products/category/{category}")
+    suspend fun getProductsByCategory(
+        @Path("category") categoryName: String,
+        @Query("skip") skip: Int,
+        @Query("limit") limit: Int = 20
+    ) : ProductsResponse
+
+    @GET("products/categories")
+    suspend fun getCategories(): List<String>
 
     companion object {
         const val BASE_URL = "https://dummyjson.com"

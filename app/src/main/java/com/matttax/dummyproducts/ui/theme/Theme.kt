@@ -17,8 +17,10 @@ private val DarkColorPalette = darkColorScheme(
 private val LightColorPalette = lightColorScheme(
     primary = Purple700,
     primaryContainer = Color.White,
+    secondaryContainer = Color.Black,
     onPrimary = Color.Black,
     onSecondary = Color.Gray,
+    onTertiary = Color.White,
     error = Color.Red,
 )
 

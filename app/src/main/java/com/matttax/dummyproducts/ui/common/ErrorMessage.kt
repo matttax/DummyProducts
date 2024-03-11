@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.matttax.dummyproducts.presentation.utils.StringUtils
 
 @Composable
 fun ErrorMessage(
@@ -36,7 +37,7 @@ fun ErrorMessage(
             onClick = onClickRetry
         ) {
             Text(
-                text = "Retry",
+                text = StringUtils.Titles.RETRY_BUTTON_TEXT,
                 style = MaterialTheme.typography.labelLarge
             )
         }
