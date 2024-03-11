@@ -1,23 +1,16 @@
 package com.matttax.dummyproducts.presentation.components.product
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.matttax.dummyproducts.R
 import com.matttax.dummyproducts.presentation.model.CartCountEvent
 import com.matttax.dummyproducts.presentation.utils.ui.AnimationUtils
-import com.matttax.dummyproducts.ui.common.StarShape
-import com.matttax.dummyproducts.ui.common.Title
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
@@ -34,7 +27,7 @@ fun CartPanel(
     Card(
         modifier = modifier.padding(15.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 15.dp),
-        shape = RoundedCornerShape(15.dp)
+        shape = MaterialTheme.shapes.medium
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,12 +51,12 @@ fun CartPanel(
                 Row {
                     Text(
                         text = count.toString(),
-                        style = MaterialTheme.typography.displayMedium,
+                        style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                     Text(
                         text = " / $inStock",
-                        style = MaterialTheme.typography.displayMedium,
+                        style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSecondary
                     )
                 }
@@ -86,12 +79,12 @@ fun CartPanel(
                     Row {
                         Text(
                             text = "Add to cart",
-                            style = MaterialTheme.typography.displaySmall,
+                            style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.onTertiary
                         )
                         Text(
                             text = " (${String.format("%.1f", price * count)})",
-                            style = MaterialTheme.typography.displaySmall,
+                            style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.onTertiary
                         )
                     }

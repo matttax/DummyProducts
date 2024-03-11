@@ -88,7 +88,6 @@ fun ProductsPagingList(
                             modifier = Modifier.fillMaxWidth(),
                             message = StringUtils.Errors.getPagingErrorMessage(error),
                             spaceBetween = 10.dp,
-                            isTextLarge = false,
                             onClickRetry = { retry() }
                         )
                     }

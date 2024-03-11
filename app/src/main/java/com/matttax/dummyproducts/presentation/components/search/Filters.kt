@@ -46,7 +46,7 @@ fun Filters(
             Text(
                 text = StringUtils.Titles.FILTERS_EXPAND_BUTTON_TEXT,
                 color = MaterialTheme.colorScheme.onSecondary,
-                style = MaterialTheme.typography.displayMedium
+                style = MaterialTheme.typography.titleMedium
             )
         }
         Popup(offset = IntOffset(0, barYPosition)) {

@@ -27,43 +27,35 @@ val jostLight = FontFamily(
 
 val Typography = Typography(
     titleLarge = TextStyle(
-        fontFamily = jostNormal,
-        fontSize = 16.sp,
+        fontFamily = jostBold,
+        fontSize = 28.sp
     ),
     titleMedium = TextStyle(
-        fontFamily = jostLight,
-        fontSize = 14.sp,
+        fontFamily = jostMedium,
+        fontSize = 24.sp,
     ),
     titleSmall = TextStyle(
         fontFamily = jostMedium,
-        fontSize = 12.sp
+        fontSize = 16.sp,
     ),
     labelLarge = TextStyle(
         fontFamily = jostBold,
         fontSize = 15.sp,
     ),
     labelMedium = TextStyle(
-        fontFamily = jostMedium,
-        fontSize = 14.sp
-    ),
-    labelSmall = TextStyle(
         fontFamily = jostLight,
         fontSize = 15.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = jostNormal,
-        fontSize = 24.sp,
-    ),
-    displayLarge = TextStyle(
-        fontFamily = jostBold,
-        fontSize = 28.sp
-    ),
-    displayMedium = TextStyle(
-        fontFamily = jostMedium,
-        fontSize = 24.sp,
-    ),
-    displaySmall = TextStyle(
-        fontFamily = jostMedium,
         fontSize = 16.sp,
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = jostLight,
+        fontSize = 14.sp,
+    ),
+    bodySmall = TextStyle(
+        fontFamily = jostMedium,
+        fontSize = 12.sp
     ),
 )

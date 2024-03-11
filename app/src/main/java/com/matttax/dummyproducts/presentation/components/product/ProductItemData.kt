@@ -53,7 +53,7 @@ fun ProductItemData(
             )
             Text(
                 text = "(${product.rating})",
-                style = MaterialTheme.typography.displayMedium,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSecondary
             )
         }
@@ -82,7 +82,7 @@ fun ProductDescription(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = description,
-            style = MaterialTheme.typography.displaySmall,
+            style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onPrimary
         )
         Spacer(Modifier.height(spaceBetween))
@@ -93,12 +93,12 @@ fun ProductDescription(
         ) {
             Text(
                 text = "Category: ",
-                style = MaterialTheme.typography.displaySmall,
+                style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onPrimary
             )
             Text(
                 text = category,
-                style = MaterialTheme.typography.displaySmall,
+                style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onSecondary
             )
         }

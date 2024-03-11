@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                         val searchViewModel = hiltViewModel<SearchViewModel>()
                         ProductsListScreen(searchViewModel) { id ->
                             navController.navigate(NavigationScreen.ProductData.navigateById(id)) {
-                                popUpTo(NavigationScreen.SearchProducts.route)
+                                popUpTo(NavigationScreen.SearchProducts.route) // чтобы в бэкстке не было несольких экранов с товарами
                             }
                         }
                     }

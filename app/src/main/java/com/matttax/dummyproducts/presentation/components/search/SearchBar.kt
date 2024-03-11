@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -44,7 +43,7 @@ fun SearchBar(
         placeholder = {
             Text(
                 text = StringUtils.Titles.SEARCH_BAR_PLACEHOLDER_TEXT,
-                style = MaterialTheme.typography.displayMedium,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSecondary
             )
         },
@@ -53,14 +52,14 @@ fun SearchBar(
         keyboardActions = KeyboardActions(
             onSearch = { onSearch() }
         ),
-        shape = RoundedCornerShape(20),
+        shape = MaterialTheme.shapes.large,
         colors = TextFieldDefaults.colors(
             cursorColor = MaterialTheme.colorScheme.primary,
             focusedIndicatorColor = MaterialTheme.colorScheme.primary,
             unfocusedContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent
         ),
-        textStyle = MaterialTheme.typography.displayMedium,
+        textStyle = MaterialTheme.typography.titleMedium,
         interactionSource = interactionSource
     )
 }

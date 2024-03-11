@@ -3,7 +3,6 @@ package com.matttax.dummyproducts.presentation.components.search
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -28,7 +27,7 @@ fun ProductItem(
             .fillMaxWidth()
             .padding(horizontal = 5.dp)
             .clickable { onClick(product.id) },
-        shape = RoundedCornerShape(7.dp),
+        shape = MaterialTheme.shapes.small,
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer)
     ) {
@@ -59,7 +58,7 @@ fun ProductItem(
             ) {
                 Text(
                     text = product.title,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
                 StarRatingBar(
@@ -68,7 +67,7 @@ fun ProductItem(
                 )
                 Text(
                     text = product.description,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSecondary
                 )
                 Spacer(
@@ -76,7 +75,7 @@ fun ProductItem(
                 )
                 Text(
                     text = "In stock: ${product.inStock}",
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSecondary
                 )
                 Row {
@@ -90,7 +89,7 @@ fun ProductItem(
                     )
                     Text(
                         text = String.format("%.1f", product.oldPrice),
-                        style = MaterialTheme.typography.labelSmall.copy(
+                        style = MaterialTheme.typography.labelMedium.copy(
                             textDecoration = TextDecoration.LineThrough
                         ),
                         color = MaterialTheme.colorScheme.onSecondary

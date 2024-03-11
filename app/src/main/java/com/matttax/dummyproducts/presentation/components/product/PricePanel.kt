@@ -43,7 +43,7 @@ fun PricePanel(
             Text(
                 modifier = Modifier.padding(20.dp),
                 text = "-${discountPercentage.roundToInt()}%",
-                style = MaterialTheme.typography.displayMedium,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onTertiary
             )
         }

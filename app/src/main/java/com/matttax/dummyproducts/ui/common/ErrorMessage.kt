@@ -17,7 +17,6 @@ fun ErrorMessage(
     message: String,
     modifier: Modifier = Modifier,
     spaceBetween: Dp = 25.dp,
-    isTextLarge: Boolean = true,
     onClickRetry: () -> Unit
 ) {
     Column(
@@ -28,7 +27,7 @@ fun ErrorMessage(
         Text(
             text = message,
             color = MaterialTheme.colorScheme.error,
-            style = if (isTextLarge) MaterialTheme.typography.bodyLarge else MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             maxLines = 2
         )

@@ -2,16 +2,19 @@ package com.matttax.dummyproducts.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColorScheme(
-    primary = Color.Black,
-    secondary = Color.Gray,
-    primaryContainer = Color.LightGray
+    primary = Purple700,
+    primaryContainer = Color.Black,
+    secondaryContainer = Color.Black,
+    onPrimary = Color.White,
+    onSecondary = Color.LightGray,
+    onTertiary = Color.Gray,
+    error = Color.Red,
 )
 
 private val LightColorPalette = lightColorScheme(
