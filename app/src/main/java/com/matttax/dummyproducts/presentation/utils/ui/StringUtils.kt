@@ -13,7 +13,7 @@ object StringUtils {
                  null -> "Unknown error"
                  is SocketException, is ConnectException -> "You're offline. Check your connection"
                  is UnknownHostException -> "Failed to connect with host"
-                 else -> "Loading error occurred"
+                 else -> state.error.message ?: "Loading error occurred"
              }
          }
 

@@ -11,20 +11,22 @@ private val DarkColorPalette = darkColorScheme(
     primary = Purple700,
     primaryContainer = Color.Black,
     secondaryContainer = Color.White,
+    tertiaryContainer = SuperDarkGray,
     onPrimary = Color.White,
     onSecondary = Color.LightGray,
     onTertiary = Color.Gray,
-    error = Color.Red,
+    error = Color.Red
 )
 
 private val LightColorPalette = lightColorScheme(
     primary = Purple700,
     primaryContainer = Color.White,
     secondaryContainer = Color.Black,
+    tertiaryContainer = SuperLightGray,
     onPrimary = Color.Black,
     onSecondary = Color.Gray,
     onTertiary = Color.White,
-    error = Color.Red,
+    error = Color.Red
 )
 
 @Composable

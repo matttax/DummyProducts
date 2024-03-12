@@ -10,6 +10,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import com.matttax.dummyproducts.ui.theme.YellowBright
+import com.matttax.dummyproducts.ui.theme.YellowDark
 
 @Composable
 fun StarRatingBar(
@@ -31,13 +33,13 @@ fun StarRatingBar(
 
 fun Modifier.getRatingGradient(rating: Float): Modifier {
     return when {
-        rating >= 1 -> background(color = Color(0xFFF6BE00))
-        rating <= 0 -> background(color = Color(0x35F6BE00))
+        rating >= 1 -> background(YellowBright)
+        rating <= 0 -> background(YellowDark)
         else -> background(
             brush = Brush.horizontalGradient(
                 colorStops = arrayOf(
-                    (rating % 1f) to Color(0xFFF6BE00),
-                    (rating % 1f) to Color(0x35F6BE00)
+                    (rating % 1f) to YellowBright,
+                    (rating % 1f) to YellowDark
                 )
             )
         )

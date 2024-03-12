@@ -27,6 +27,7 @@ class ProductViewModel @Inject constructor(
     private val _productState = MutableStateFlow<ProductState>(ProductState.Loading)
     val productState = _productState.asStateFlow()
 
+    // количество добавляемых в корзину товаров
     private val _toCartAddedCount = MutableStateFlow(0)
     val toCartAddedCount = _toCartAddedCount.asStateFlow()
 

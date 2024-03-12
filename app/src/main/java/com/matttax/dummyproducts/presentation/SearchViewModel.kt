@@ -39,7 +39,6 @@ class SearchViewModel @Inject constructor(
 
     private val _categoriesList = MutableStateFlow<List<CategoryUiModel>?>(null)
     val categoriesList = _categoriesList.asStateFlow()
-    private val changedCategories = Collections.synchronizedSet(HashSet<String>())
 
     private val searchSingleEventChanel = Channel<SearchSingleEvent>()
     val eventFlow = searchSingleEventChanel.receiveAsFlow()
@@ -52,6 +51,7 @@ class SearchViewModel @Inject constructor(
 
     private val refreshTrigger = createRefreshTrigger()
     private var listUpdatedFlag = AtomicReference(false)
+    private val changedCategories = Collections.synchronizedSet(HashSet<String>())
 
     init {
         observeData()

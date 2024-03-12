@@ -1,6 +1,7 @@
 package com.matttax.dummyproducts.presentation.components.product
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -27,7 +28,8 @@ fun CartPanel(
     Card(
         modifier = modifier.padding(15.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 15.dp),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.tertiaryContainer),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

@@ -40,7 +40,7 @@ fun LoadedProductPortrait(
     ) {
         ProductItemData(
             modifier = Modifier.padding(
-                bottom = with(LocalDensity.current) { barYPosition.toDp() }
+                bottom = with(LocalDensity.current) { barYPosition.toDp() } // чтобы bottom bar не перекрывал описание
             ),
             product = product
         )
