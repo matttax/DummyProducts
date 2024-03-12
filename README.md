@@ -38,6 +38,10 @@
  </ul>
  * - гугловская библиотека для создания пейджеров на compose (как на странице товара)
 
+Архитектура
+------------
+Чистая слоистая архитектура: (data, domain и presentation).<br>UI-паттерн: MVVM.
+
 Демо
 ------------
 Скачать приложение можно по ссылке: https://github.com/matttax/DummyProducts/blob/master/DummyProducts.apk
