@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.matttax.dummyproducts.R
 import com.matttax.dummyproducts.presentation.model.CartCountEvent
 import com.matttax.dummyproducts.presentation.utils.ui.AnimationUtils
@@ -24,7 +25,7 @@ fun CartPanel(
     onSubmit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val count by currentCount.collectAsState()
+    val count by currentCount.collectAsStateWithLifecycle()
     Card(
         modifier = modifier.padding(15.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 15.dp),

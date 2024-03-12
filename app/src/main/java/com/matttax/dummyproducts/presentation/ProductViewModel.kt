@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.matttax.dummyproducts.connectivity.ConnectionState
 import com.matttax.dummyproducts.connectivity.NetworkConnectivityProvider
 import com.matttax.dummyproducts.data.model.ProductLoadingException
-import com.matttax.dummyproducts.domain.usecases.GetProductByIdUseCase
+import com.matttax.dummyproducts.domain.ProductsRepository
 import com.matttax.dummyproducts.presentation.model.CartCountEvent
 import com.matttax.dummyproducts.presentation.model.ProductState
 import com.matttax.dummyproducts.presentation.utils.RefreshTrigger
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
-    private val getProductByIdUseCase: GetProductByIdUseCase,
+    private val productsRepository: ProductsRepository,
     private val networkConnectivityProvider: NetworkConnectivityProvider,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -63,9 +63,8 @@ class ProductViewModel @Inject constructor(
                 _productState.value = ProductState.Loading
             }
             .flatMapLatest {
-                getProductByIdUseCase(productId)
+                productsRepository.getProductById(productId)
             }
-            .flowOn(Dispatchers.IO)
             .onEach {
                 if (it.isSuccess) {
                     _productState.value = it.getOrNull()
@@ -79,7 +78,9 @@ class ProductViewModel @Inject constructor(
                         )
                     }
                 }
-            }.launchIn(viewModelScope)
+            }
+            .flowOn(Dispatchers.IO)
+            .launchIn(viewModelScope)
         refreshTrigger.pull()
     }
 

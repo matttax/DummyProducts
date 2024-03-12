@@ -8,9 +8,7 @@ import androidx.paging.filter
 import com.matttax.dummyproducts.domain.model.ProductDomainModel
 import com.matttax.dummyproducts.connectivity.ConnectionState
 import com.matttax.dummyproducts.connectivity.NetworkConnectivityProvider
-import com.matttax.dummyproducts.domain.usecases.GetAllProductsUseCase
-import com.matttax.dummyproducts.domain.usecases.GetCategoriesUseCase
-import com.matttax.dummyproducts.domain.usecases.SearchProductsUseCase
+import com.matttax.dummyproducts.domain.ProductsRepository
 import com.matttax.dummyproducts.presentation.model.CategoryUiModel
 import com.matttax.dummyproducts.presentation.model.ProductQuery
 import com.matttax.dummyproducts.presentation.model.SearchSingleEvent
@@ -28,9 +26,7 @@ import kotlin.collections.HashSet
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getAllProductsUseCase: GetAllProductsUseCase,
-    private val searchProductsUseCase: SearchProductsUseCase,
+    private val productsRepository: ProductsRepository,
     networkConnectivityProvider: NetworkConnectivityProvider,
 ) : ViewModel() {
 
@@ -109,11 +105,11 @@ class SearchViewModel @Inject constructor(
             }
             .flatMapLatest { query ->
                 if (query == ProductQuery.GET_ALL_QUERY) {
-                    getAllProductsUseCase()
+                    productsRepository.getProducts()
                 } else if (query.categories == null) {
-                    searchProductsUseCase(query.text)
+                    productsRepository.getProducts(query.text)
                 } else {
-                    searchProductsUseCase(query.text)
+                    productsRepository.getProducts(query.text)
                         .map { it.filter { product ->
                             query.categories.contains(product.category)
                         }
@@ -141,7 +137,7 @@ class SearchViewModel @Inject constructor(
         networkConnectionState
             .filter { it == ConnectionState.AVAILABLE && _categoriesList.value == null }
             .flatMapLatest {
-                getCategoriesUseCase()
+                productsRepository.getCategories()
             }
             .flowOn(Dispatchers.IO)
             .onEach {

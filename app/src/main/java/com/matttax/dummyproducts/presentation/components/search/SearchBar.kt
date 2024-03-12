@@ -8,13 +8,13 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.matttax.dummyproducts.R
 import com.matttax.dummyproducts.presentation.utils.ui.StringUtils
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +26,7 @@ fun SearchBar(
     onSearch: () -> Unit,
     interactionSource: MutableInteractionSource
 ) {
-    val query by searchText.collectAsState("")
+    val query by searchText.collectAsStateWithLifecycle(initialValue = "")
     TextField(
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.primaryContainer)

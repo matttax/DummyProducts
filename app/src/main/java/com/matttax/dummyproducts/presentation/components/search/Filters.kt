@@ -14,6 +14,7 @@ import androidx.compose.ui.layout.onPlaced
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.matttax.dummyproducts.presentation.model.CategoryUiModel
 import com.matttax.dummyproducts.presentation.utils.ui.AnimationUtils
 import com.matttax.dummyproducts.presentation.utils.ui.StringUtils
@@ -29,7 +30,7 @@ fun Filters(
     onClick: () -> Unit,
     onApply: () -> Unit
 ) {
-    val categories by categoriesListFlow.collectAsState(initial = null)
+    val categories by categoriesListFlow.collectAsStateWithLifecycle(initialValue = null)
     var barYPosition by remember { mutableStateOf(0) }
     Column {
         Row(

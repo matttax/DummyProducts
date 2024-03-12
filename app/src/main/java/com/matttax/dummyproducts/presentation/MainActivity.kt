@@ -41,9 +41,11 @@ class MainActivity : ComponentActivity() {
                         route = NavigationScreen.ProductData.route,
                         enterTransition = { AnimationUtils.navigationSlideInAnimation },
                         exitTransition = { AnimationUtils.navigationSlideOutAnimation },
+                        popEnterTransition = { AnimationUtils.navigationSlideInAnimation },
+                        popExitTransition = { AnimationUtils.navigationSlideOutAnimation },
                         arguments = listOf(
                             navArgument(ProductViewModel.ID_KEY) { type = NavType.LongType }
-                        ),
+                        )
                     ) {
                         val productViewModel = hiltViewModel<ProductViewModel>()
                         ProductItemScreen(productViewModel)
