@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
-import com.matttax.dummyproducts.domain.ProductDomainModel
+import com.matttax.dummyproducts.domain.model.ProductDomainModel
 import com.matttax.dummyproducts.ui.common.ImagePager
 import com.matttax.dummyproducts.ui.common.StarRatingBar
 import com.matttax.dummyproducts.ui.common.Title

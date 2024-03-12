@@ -2,7 +2,6 @@ package com.matttax.dummyproducts.data
 
 import com.matttax.dummyproducts.data.model.Product
 import com.matttax.dummyproducts.data.model.ProductsResponse
-import com.matttax.dummyproducts.domain.ProductDomainModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

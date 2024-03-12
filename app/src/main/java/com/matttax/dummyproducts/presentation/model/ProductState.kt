@@ -1,6 +1,6 @@
 package com.matttax.dummyproducts.presentation.model
 
-import com.matttax.dummyproducts.domain.ProductDomainModel
+import com.matttax.dummyproducts.domain.model.ProductDomainModel
 
 sealed interface ProductState {
     object NotFound : ProductState

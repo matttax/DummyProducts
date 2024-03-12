@@ -5,18 +5,19 @@ import com.matttax.dummyproducts.data.model.ProductLoadingException.Companion.to
 import com.matttax.dummyproducts.data.model.toDomainCategories
 import com.matttax.dummyproducts.data.model.toDomainProduct
 import com.matttax.dummyproducts.data.model.toDomainProductList
-import com.matttax.dummyproducts.domain.ProductDomainModel
+import com.matttax.dummyproducts.domain.model.ProductDomainModel
 import com.matttax.dummyproducts.data.paging.PagingConsts
 import com.matttax.dummyproducts.data.paging.ProductPagingSource
-import com.matttax.dummyproducts.domain.Categories
+import com.matttax.dummyproducts.domain.ProductsRepository
+import com.matttax.dummyproducts.domain.model.Categories
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ProductRepository @Inject constructor(
+class ProductRepositoryImpl @Inject constructor(
     private val productApi: ProductApi
-) {
-    fun getProducts(): Flow<PagingData<ProductDomainModel>> {
+) : ProductsRepository {
+    override fun getProducts(): Flow<PagingData<ProductDomainModel>> {
         return buildPager {
             productApi.getAllProducts(
                 skip = it
@@ -24,7 +25,7 @@ class ProductRepository @Inject constructor(
         }.flow
     }
 
-    fun getProducts(query: String): Flow<PagingData<ProductDomainModel>> {
+    override fun getProducts(query: String): Flow<PagingData<ProductDomainModel>> {
         return buildPager {
             productApi.searchProducts(
                 text = query,
@@ -33,7 +34,7 @@ class ProductRepository @Inject constructor(
         }.flow
     }
 
-    fun getByCategory(categoryName: String): Flow<PagingData<ProductDomainModel>> {
+    override fun getByCategory(categoryName: String): Flow<PagingData<ProductDomainModel>> {
         return buildPager {
             productApi.getProductsByCategory(
                 categoryName = categoryName,
@@ -42,7 +43,7 @@ class ProductRepository @Inject constructor(
         }.flow
     }
 
-    fun getCategories(): Flow<Result<Categories>> {
+    override fun getCategories(): Flow<Result<Categories>> {
         return flow {
             try {
                 emit(Result.success(productApi.getCategories().toDomainCategories()))
@@ -52,7 +53,7 @@ class ProductRepository @Inject constructor(
         }
     }
 
-    fun getProductById(id: Long): Flow<Result<ProductDomainModel>> {
+    override fun getProductById(id: Long): Flow<Result<ProductDomainModel>> {
         return flow {
             try {
                 emit(Result.success(productApi.getProductById(id).toDomainProduct()))

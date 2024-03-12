@@ -2,7 +2,7 @@ package com.matttax.dummyproducts.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.matttax.dummyproducts.domain.ProductDomainModel
+import com.matttax.dummyproducts.domain.model.ProductDomainModel
 import retrofit2.HttpException
 import java.io.IOException
 

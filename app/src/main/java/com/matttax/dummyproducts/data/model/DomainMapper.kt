@@ -1,7 +1,7 @@
 package com.matttax.dummyproducts.data.model
 
-import com.matttax.dummyproducts.domain.CategoryDomainModel
-import com.matttax.dummyproducts.domain.ProductDomainModel
+import com.matttax.dummyproducts.domain.model.CategoryDomainModel
+import com.matttax.dummyproducts.domain.model.ProductDomainModel
 
 fun Product.toDomainProduct(): ProductDomainModel {
     return ProductDomainModel(

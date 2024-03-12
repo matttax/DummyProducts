@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.matttax.dummyproducts.domain.ProductDomainModel
+import com.matttax.dummyproducts.domain.model.ProductDomainModel
 import com.matttax.dummyproducts.connectivity.ConnectionState
 import com.matttax.dummyproducts.presentation.model.toUiModel
 import com.matttax.dummyproducts.presentation.utils.ui.StringUtils

@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matttax.dummyproducts.connectivity.ConnectionState
 import com.matttax.dummyproducts.connectivity.NetworkConnectivityProvider
-import com.matttax.dummyproducts.data.ProductRepository
 import com.matttax.dummyproducts.data.model.ProductLoadingException
+import com.matttax.dummyproducts.domain.usecases.GetProductByIdUseCase
 import com.matttax.dummyproducts.presentation.model.CartCountEvent
 import com.matttax.dummyproducts.presentation.model.ProductState
-import com.matttax.dummyproducts.presentation.utils.createRefreshTrigger
+import com.matttax.dummyproducts.presentation.utils.RefreshTrigger
 import com.matttax.dummyproducts.presentation.utils.pull
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
-    private val productRepository: ProductRepository,
+    private val getProductByIdUseCase: GetProductByIdUseCase,
     private val networkConnectivityProvider: NetworkConnectivityProvider,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -32,7 +32,7 @@ class ProductViewModel @Inject constructor(
     val toCartAddedCount = _toCartAddedCount.asStateFlow()
 
     private val productId: Long = checkNotNull(savedStateHandle[ID_KEY])
-    private val refreshTrigger = createRefreshTrigger()
+    private val refreshTrigger = RefreshTrigger()
 
     init {
         observeProduct()
@@ -63,7 +63,7 @@ class ProductViewModel @Inject constructor(
                 _productState.value = ProductState.Loading
             }
             .flatMapLatest {
-                productRepository.getProductById(productId)
+                getProductByIdUseCase(productId)
             }
             .flowOn(Dispatchers.IO)
             .onEach {

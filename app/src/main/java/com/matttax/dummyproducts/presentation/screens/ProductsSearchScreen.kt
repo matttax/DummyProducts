@@ -95,7 +95,10 @@ fun ProductsListScreen(
                 pagingListFlow = viewModel.productsState,
                 networkConnectionState = viewModel.networkConnectionState,
                 listState = listState,
-                onItemClick = onItemClick
+                onItemClick = {
+                    filtersExpanded = false
+                    onItemClick(it)
+                }
             )
         }
     }

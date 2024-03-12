@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts
+package com.matttax.dummyproducts.di
 
 import com.matttax.dummyproducts.data.ProductApi
 import dagger.Module

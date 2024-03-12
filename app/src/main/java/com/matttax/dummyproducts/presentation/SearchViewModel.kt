@@ -5,15 +5,16 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.matttax.dummyproducts.domain.ProductDomainModel
-import com.matttax.dummyproducts.data.ProductRepository
+import com.matttax.dummyproducts.domain.model.ProductDomainModel
 import com.matttax.dummyproducts.connectivity.ConnectionState
 import com.matttax.dummyproducts.connectivity.NetworkConnectivityProvider
+import com.matttax.dummyproducts.domain.usecases.GetAllProductsUseCase
+import com.matttax.dummyproducts.domain.usecases.GetCategoriesUseCase
+import com.matttax.dummyproducts.domain.usecases.SearchProductsUseCase
 import com.matttax.dummyproducts.presentation.model.CategoryUiModel
 import com.matttax.dummyproducts.presentation.model.ProductQuery
 import com.matttax.dummyproducts.presentation.model.SearchSingleEvent
 import com.matttax.dummyproducts.presentation.utils.RefreshTrigger
-import com.matttax.dummyproducts.presentation.utils.createRefreshTrigger
 import com.matttax.dummyproducts.presentation.utils.pull
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +28,9 @@ import kotlin.collections.HashSet
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val productRepository: ProductRepository,
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val getAllProductsUseCase: GetAllProductsUseCase,
+    private val searchProductsUseCase: SearchProductsUseCase,
     networkConnectivityProvider: NetworkConnectivityProvider,
 ) : ViewModel() {
 
@@ -49,7 +52,7 @@ class SearchViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(FLOW_STOP_TIMEOUT_MS)
     )
 
-    private val refreshTrigger = createRefreshTrigger()
+    private val refreshTrigger = RefreshTrigger()
     private var listUpdatedFlag = AtomicReference(false)
     private val changedCategories = Collections.synchronizedSet(HashSet<String>())
 
@@ -106,11 +109,11 @@ class SearchViewModel @Inject constructor(
             }
             .flatMapLatest { query ->
                 if (query == ProductQuery.GET_ALL_QUERY) {
-                    productRepository.getProducts()
+                    getAllProductsUseCase()
                 } else if (query.categories == null) {
-                    productRepository.getProducts(query.text)
+                    searchProductsUseCase(query.text)
                 } else {
-                    productRepository.getProducts(query.text)
+                    searchProductsUseCase(query.text)
                         .map { it.filter { product ->
                             query.categories.contains(product.category)
                         }
@@ -138,7 +141,7 @@ class SearchViewModel @Inject constructor(
         networkConnectionState
             .filter { it == ConnectionState.AVAILABLE && _categoriesList.value == null }
             .flatMapLatest {
-                productRepository.getCategories()
+                getCategoriesUseCase()
             }
             .flowOn(Dispatchers.IO)
             .onEach {

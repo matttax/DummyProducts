@@ -1,4 +1,4 @@
-package com.matttax.dummyproducts.domain
+package com.matttax.dummyproducts.domain.model
 
 import androidx.annotation.FloatRange
 import com.google.gson.annotations.SerializedName

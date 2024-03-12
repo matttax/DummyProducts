@@ -2,12 +2,12 @@ package com.matttax.dummyproducts.presentation.utils
 
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-typealias RefreshTrigger = MutableSharedFlow<Unit>
-
-fun RefreshTrigger.pull() {
-    tryEmit(Unit)
+object RefreshTrigger {
+    operator fun invoke(): MutableSharedFlow<Unit> {
+        return MutableSharedFlow(replay = 1)
+    }
 }
 
-fun createRefreshTrigger(): RefreshTrigger {
-    return MutableSharedFlow(replay = 1)
+fun MutableSharedFlow<Unit>.pull() {
+    tryEmit(Unit)
 }

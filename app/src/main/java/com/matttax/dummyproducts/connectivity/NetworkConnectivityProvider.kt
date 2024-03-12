@@ -36,6 +36,6 @@ class NetworkConnectivityProvider @Inject constructor (
             connectivityManager.unregisterNetworkCallback(connectivityCallback)
         }
     }
-        .distinctUntilChanged()
-        .flowOn(Dispatchers.IO)
+    .distinctUntilChanged()
+    .flowOn(Dispatchers.IO)
 }

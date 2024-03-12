@@ -2,7 +2,9 @@ package com.matttax.dummyproducts.presentation.screens
 
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,13 +38,13 @@ fun ProductItemScreen(viewModel: ProductViewModel) {
         }
         is ProductState.Loading -> {
             ProgressBar(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primaryContainer),
                 size = 100.dp
             )
         }
         is ProductState.NetworkError -> {
             ErrorMessage(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primaryContainer),
                 message = state.message
             ) {
                 viewModel.refresh()
@@ -50,7 +52,7 @@ fun ProductItemScreen(viewModel: ProductViewModel) {
         }
         is ProductState.NotFound -> {
             ErrorMessage(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.primaryContainer),
                 message = "Product not found"
             ) {
                 viewModel.refresh()

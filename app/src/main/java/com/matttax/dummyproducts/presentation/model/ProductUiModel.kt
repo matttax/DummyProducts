@@ -1,7 +1,7 @@
 package com.matttax.dummyproducts.presentation.model
 
 import androidx.compose.runtime.Immutable
-import com.matttax.dummyproducts.domain.ProductDomainModel
+import com.matttax.dummyproducts.domain.model.ProductDomainModel
 
 @Immutable
 data class ProductUiModel(
